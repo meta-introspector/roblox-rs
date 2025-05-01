@@ -34,7 +34,6 @@ hecs = "0.10.5"
 
 # Luau integration
 mlua = { version = "0.10.3", features = ["luau"], optional = true }
-luau-sys = { version = "0.1.0", optional = true }
 
 [features]
 default = ["ast-parser"]
@@ -53,7 +52,9 @@ parallelization = []
 binary-compatibility = []
 # Utilities
 temp-files = ["tempfile"]
-luau-runtime = ["mlua", "luau-sys"]
+luau-runtime = ["mlua"]
 logging = ["log"]
 proc_macros = ["syn"]
+# interpret feature no longer includes luau-sys
+interpret = []
 
