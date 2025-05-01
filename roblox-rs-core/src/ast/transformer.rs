@@ -5,7 +5,7 @@
 use syn::{File, Item, ItemFn, ItemStruct, ItemEnum, ItemImpl, ImplItem};
 use thiserror::Error;
 
-use super::luau::{LuauAst, LuauStmt, LuauExpr, LuauFunction, LuauTable};
+use crate::luau::{LuauAst, LuauStmt, LuauExpr, LuauFunction, LuauTable};
 use crate::error::Result;
 
 /// Error that can occur during AST transformation.
@@ -66,7 +66,7 @@ fn transform_item(item: &Item, ast: &mut LuauAst) -> Result<()> {
 /// Transform a Rust function into a Luau function.
 fn transform_function(func: &ItemFn, ast: &mut LuauAst) -> Result<()> {
     let name = func.sig.ident.to_string();
-    let mut luau_func = LuauFunction::new(name);
+    let mut luau_func = LuauFunction::new(name.clone());
     
     // Add parameters
     for param in &func.sig.inputs {

@@ -94,21 +94,20 @@ impl DependencyAnalyzer {
 impl<'ast> Visit<'ast> for DependencyAnalyzer {
     fn visit_use_path(&mut self, path: &'ast syn::UsePath) {
         // Check for std modules
-        if let Some(first_segment) = path.path.segments.first() {
-            let name = first_segment.ident.to_string();
-            
-            if name == "std" {
-                if let Some(second_segment) = path.path.segments.iter().nth(1) {
-                    let module = second_segment.ident.to_string();
-                    if !self.std_modules.contains(&module) {
-                        self.std_modules.push(module);
-                    }
+        let name = path.ident.to_string();
+        
+        if name == "std" {
+            // Access the tree to look for the second segment
+            if let syn::UseTree::Path(subtree) = &*path.tree {
+                let module = subtree.ident.to_string();
+                if !self.std_modules.contains(&module) {
+                    self.std_modules.push(module);
                 }
-            } else if !name.starts_with("self") && !name.starts_with("crate") {
-                // External crate
-                if !self.external_crates.contains(&name) {
-                    self.external_crates.push(name);
-                }
+            }
+        } else if !name.starts_with("self") && !name.starts_with("crate") {
+            // External crate
+            if !self.external_crates.contains(&name) {
+                self.external_crates.push(name);
             }
         }
         

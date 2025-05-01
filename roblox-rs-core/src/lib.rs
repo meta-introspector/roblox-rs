@@ -33,7 +33,7 @@ pub const VERSION: &str = env!("CARGO_PKG_VERSION");
 #[cfg(test)]
 mod tests {
     use super::*;
-    
+
     #[test]
     fn it_works() {
         let result = compile("fn main() { println!(\"Hello, world!\"); }", Default::default());

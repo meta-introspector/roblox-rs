@@ -38,7 +38,7 @@ pub fn extract_doc_comments(attrs: &[syn::Attribute]) -> Vec<String> {
         .iter()
         .filter(|attr| attr.path().is_ident("doc"))
         .filter_map(|attr| {
-            if let Ok(syn::Meta::NameValue(meta)) = attr.meta.clone().require_name_value() {
+            if let Ok(meta) = attr.meta.clone().require_name_value() {
                 if let syn::Expr::Lit(expr_lit) = &meta.value {
                     if let syn::Lit::Str(lit_str) = &expr_lit.lit {
                         return Some(lit_str.value().trim().to_string());

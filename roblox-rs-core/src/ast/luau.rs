@@ -229,10 +229,22 @@ pub struct FunctionType {
 /// Representation of a Luau AST.
 #[derive(Debug, Clone)]
 pub struct LuauAst {
-    /// The root node of the AST.
-    pub root: LuauNode,
-    /// Metadata about the AST.
-    pub metadata: AstMetadata,
+    /// The statements in the AST.
+    pub statements: Vec<crate::luau::LuauStmt>,
+}
+
+impl LuauAst {
+    /// Create a new empty AST
+    pub fn new() -> Self {
+        Self {
+            statements: Vec::new(),
+        }
+    }
+    
+    /// Add a statement to the AST
+    pub fn add_stmt(&mut self, stmt: crate::luau::LuauStmt) {
+        self.statements.push(stmt);
+    }
 }
 
 /// Metadata about the AST.

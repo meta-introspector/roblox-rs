@@ -54,8 +54,7 @@ pub fn compile(input: &str, options: CompileOptions) -> Result<String> {
     // Transform to Luau code
     #[cfg(feature = "ast-parser")]
     {
-        let luau_ast = crate::ast::transformer::transform_ast(&ast)
-            .map_err(|e| Error::Transform(e.to_string()))?;
+        let luau_ast = crate::ast::transformer::transform_ast(&ast)?;
         
         // Generate Luau code
         let mut luau_code = crate::luau::generator::generate_code(&luau_ast)
