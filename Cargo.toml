@@ -3,7 +3,7 @@ resolver = "2"
 members = [
     "roblox-rs-cli",
     "roblox-rs-core",
-    "roblox-rs-ecs",
+    "roblox-rs-ecs"
     # These are planned future crates
     # "roblox-rs-rojo"
 ]
@@ -41,9 +41,6 @@ env_logger = { version = "0.10" }
 # CLI utilities
 clap = { version = "4.4", features = ["derive"] }
 
-# Luau integration 
-luau-sys = { version = "0.1.0" }
-
 # Testing
 pretty_assertions = "1.4"
 
@@ -55,4 +52,4 @@ roblox = []
 
 # Compilation strategies
 transpile = []         # Source-to-source translation
-interpret = ["luau-sys"] # Compile to Luau bytecode for VM interpretation 
+interpret = [] # Compile to Luau bytecode for VM interpretation 
