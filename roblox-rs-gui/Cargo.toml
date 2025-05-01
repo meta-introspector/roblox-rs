@@ -1,0 +1,16 @@
+[package]
+name = "roblox-rs-gui"
+version = "0.1.0"
+edition = "2021"
+authors = ["DunnoConz"]
+license = "MIT"
+description = "A reactive GUI framework for Roblox, inspired by Svelte."
+repository = "https://github.com/DunnoConz/roblox-rs"
+keywords = ["roblox", "gui", "reactive", "svelte", "ui-framework"]
+categories = ["gui", "game-development"]
+readme = "README.md"
+
+[dependencies]
+anyhow = "1.0"
+thiserror = "1.0"
+# TODO: Add reactivity, vdom, and signal dependencies 

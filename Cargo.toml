@@ -4,6 +4,8 @@ members = [
     "roblox-rs-cli",
     "roblox-rs-core",
     "roblox-rs-ecs",
+    "roblox-rs-gui", "roblox-rs-tester",
+    "roblox-rs-api",
     # These are planned future crates
     # "roblox-rs-rojo"
 ]
@@ -43,6 +45,14 @@ clap = { version = "4.4", features = ["derive"] }
 
 # Testing
 pretty_assertions = "1.4"
+
+# Roblox API simulation
+mlua = { version = "0.9", features = ["luau"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+tokio = { version = "1.35", features = ["full"] }
+async-trait = "0.1"
+tokio-test = "0.4"
 
 [workspace.features]
 # Compilation targets

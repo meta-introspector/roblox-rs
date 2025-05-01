@@ -1,0 +1,8 @@
+{
+  "label": "Tutorials",
+  "position": 2,
+  "link": {
+    "type": "generated-index",
+    "description": "Step-by-step lessons to get you started with roblox-rs. Perfect for beginners who want to learn by doing."
+  }
+} 
