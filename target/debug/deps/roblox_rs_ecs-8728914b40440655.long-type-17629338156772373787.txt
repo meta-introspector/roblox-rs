@@ -1,0 +1,1 @@
+for<'a> fn(resource::ResMut<'a, system::tests::function_system::TestResource>) {system::tests::function_system::test_system}

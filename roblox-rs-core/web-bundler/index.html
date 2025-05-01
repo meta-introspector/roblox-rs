@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roblox-RS Dependency Bundler</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .header {
+            background-color: #1e3a8a;
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+        }
+        .card {
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .footer {
+            margin-top: 3rem;
+            padding: 1.5rem 0;
+            background-color: #f8f9fa;
+            border-top: 1px solid #dee2e6;
+        }
+        .dependency-item {
+            padding: 0.75rem;
+            border: 1px solid #dee2e6;
+            border-radius: 0.25rem;
+            margin-bottom: 0.5rem;
+            background-color: #f8f9fa;
+        }
+        .dependency-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .output-preview {
+            max-height: 300px;
+            overflow-y: auto;
+            font-family: monospace;
+            background-color: #f8f9fa;
+            padding: 1rem;
+            border-radius: 0.25rem;
+        }
+        .code-preview {
+            font-family: monospace;
+            font-size: 0.875rem;
+        }
+        .tag {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            background-color: #e9ecef;
+            color: #495057;
+            border-radius: 0.25rem;
+            margin-right: 0.5rem;
+            font-size: 0.875rem;
+        }
+        .version-tag {
+            background-color: #6c757d;
+            color: white;
+        }
+        .crate-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h1>Roblox-RS Dependency Bundler</h1>
+                    <p class="lead">Easily bundle your Rust dependencies for use in Roblox</p>
+                </div>
+                <div class="col-md-4 text-end">
+                    <a href="https://github.com/your-username/roblox-rs" target="_blank" class="btn btn-light">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-github" viewBox="0 0 16 16">
+                            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+                        </svg>
+                        GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">Project Configuration</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="config-form">
+                            <div class="mb-3">
+                                <label for="project-name" class="form-label">Project Name</label>
+                                <input type="text" class="form-control" id="project-name" placeholder="my-roblox-project">
+                            </div>
+                            <div class="mb-3">
+                                <label for="output-format" class="form-label">Output Format</label>
+                                <select class="form-select" id="output-format">
+                                    <option value="lua">Lua Modules</option>
+                                    <option value="rbxm">Roblox Model (.rbxm)</option>
+                                </select>
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="include-docs">
+                                <label class="form-check-label" for="include-docs">Include Type Definitions</label>
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="minify">
+                                <label class="form-check-label" for="minify">Minify Output</label>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">Add Dependencies</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="add-dependency-form">
+                            <div class="mb-3">
+                                <label for="crate-name" class="form-label">Crate Name</label>
+                                <input type="text" class="form-control" id="crate-name" placeholder="e.g., serde">
+                            </div>
+                            <div class="mb-3">
+                                <label for="crate-version" class="form-label">Version</label>
+                                <input type="text" class="form-control" id="crate-version" placeholder="e.g., 1.0.0">
+                            </div>
+                            <div class="mb-3">
+                                <label for="crate-features" class="form-label">Features (optional)</label>
+                                <input type="text" class="form-control" id="crate-features" placeholder="e.g., derive, json">
+                            </div>
+                            <button type="button" class="btn btn-primary" id="add-dependency-btn">Add Dependency</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">Path Mapping</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Specify where modules should be placed in Roblox's instance hierarchy.</p>
+                        <div class="mb-3">
+                            <label for="path-mapping" class="form-label">Root Path</label>
+                            <input type="text" class="form-control" id="path-mapping" value="game.ReplicatedStorage.Packages">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0">Dependencies</h5>
+                            <span class="badge bg-primary" id="dependency-count">0</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div id="dependencies-list">
+                            <div class="text-center text-muted py-4">
+                                <p>No dependencies added yet.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">Output Preview</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="output-tabs">
+                            <ul class="nav nav-tabs" id="outputTab" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="structure-tab" data-bs-toggle="tab" data-bs-target="#structure-content" type="button" role="tab" aria-controls="structure-content" aria-selected="true">Structure</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="index-tab" data-bs-toggle="tab" data-bs-target="#index-content" type="button" role="tab" aria-controls="index-content" aria-selected="false">Index Module</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="types-tab" data-bs-toggle="tab" data-bs-target="#types-content" type="button" role="tab" aria-controls="types-content" aria-selected="false">Types</button>
+                                </li>
+                            </ul>
+                            <div class="tab-content p-3" id="outputTabContent">
+                                <div class="tab-pane fade show active" id="structure-content" role="tabpanel" aria-labelledby="structure-tab">
+                                    <div class="output-preview">
+                                        <pre id="structure-preview">Project structure will appear here</pre>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="index-content" role="tabpanel" aria-labelledby="index-tab">
+                                    <div class="output-preview">
+                                        <pre id="index-preview">-- Index module will appear here</pre>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="types-content" role="tabpanel" aria-labelledby="types-tab">
+                                    <div class="output-preview">
+                                        <pre id="types-preview">-- Type definitions will appear here</pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-grid gap-2 mt-4">
+                    <button class="btn btn-lg btn-success" id="bundle-btn">Bundle Dependencies</button>
+                </div>
+
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">Getting Started</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">After bundling your dependencies, here's how to use them in your Roblox game:</p>
+                        <pre class="code-preview p-3"><code>-- Require the roblox-rs package
+local RobloxRs = require(game.ReplicatedStorage.Packages.RobloxRs)
+
+-- Use your Rust dependencies
+local serde = RobloxRs.serde
+local result = serde.deserialize(someData)
+
+-- Handle result using Rust-like patterns
+if result.ok then
+    local data = result:unwrap()
+    print("Successfully deserialized:", data)
+else
+    local err = result.error
+    warn("Deserialization error:", err)
+end</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-0">© 2025 Roblox-RS. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-end">
+                    <a href="#" class="text-decoration-none me-3">Documentation</a>
+                    <a href="#" class="text-decoration-none me-3">GitHub</a>
+                    <a href="#" class="text-decoration-none">Report Issues</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

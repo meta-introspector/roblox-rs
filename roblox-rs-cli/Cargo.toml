@@ -1,0 +1,25 @@
+[package]
+name = "roblox-rs-cli"
+version = "0.1.0"
+edition = "2021"
+authors = ["DunnoConz"]
+description = "Command-line interface for the roblox-rs compiler"
+repository = "https://github.com/DunnoConz/roblox-rs"
+license = "MIT"
+readme = "README.md"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+roblox-rs-core = { path = "../roblox-rs-core" }
+clap = { version = "4.4", features = ["derive"] }
+anyhow = "1.0"
+thiserror = "1.0"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+toml = "0.8"
+
+[features]
+default = ["ast-parser"]
+ast-parser = ["roblox-rs-core/ast-parser"]
+llvm-ir = ["roblox-rs-core/llvm-ir"]

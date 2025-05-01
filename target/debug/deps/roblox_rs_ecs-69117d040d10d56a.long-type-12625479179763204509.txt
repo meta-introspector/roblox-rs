@@ -1,0 +1,1 @@
+FunctionSystem<for<'a> fn(system::Commands<'a>) {system::tests::commands_system::test_system}, (system::Commands<'_>,)>

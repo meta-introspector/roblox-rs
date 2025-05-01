@@ -1,0 +1,1 @@
+FunctionSystem<for<'a> fn(event::EventWriter<'a, TestEvent>) {send_events}, (event::EventWriter<'_, TestEvent>,)>

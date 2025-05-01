@@ -1,0 +1,1 @@
+for<'a> fn(Res<'a, app::tests::app_builder::TestResource>) {app::tests::app_builder::test_system}

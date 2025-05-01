@@ -1,0 +1,59 @@
+[package]
+name = "roblox-rs-core"
+version = "0.1.0"
+edition = "2021"
+authors = ["DunnoConz"]
+license = "MIT"
+description = "Core compiler for translating Rust code to Luau for the Roblox platform"
+repository = "https://github.com/DunnoConz/roblox-rs"
+keywords = ["roblox", "luau", "compiler", "rust", "game-dev"]
+categories = ["game-development", "compilers"]
+readme = "README.md"
+
+[dependencies]
+# Rust parsing
+syn = { version = "2.0", features = ["full", "visit", "extra-traits", "parsing"], optional = true }
+quote = { version = "1.0", optional = true }
+proc-macro2 = { version = "1.0", optional = true }
+
+# LLVM integration (optional)
+inkwell = { version = "0.2.0", features = ["llvm15-0"], optional = true }
+
+# Luau generation
+serde = { version = "1.0", features = ["derive"], optional = true }
+serde_json = { version = "1.0", optional = true }
+
+# Utilities
+tempfile = { version = "3.8", optional = true }
+
+# Error handling and utilities
+anyhow = "1.0"
+thiserror = "1.0"
+log = { version = "0.4", features = ["std"], optional = true }
+hecs = "0.10.5"
+
+# Luau integration
+mlua = { version = "0.10.3", features = ["luau"], optional = true }
+luau-sys = { version = "0.1.0", optional = true }
+
+[features]
+default = ["ast-parser"]
+# Compiler approaches
+ast-parser = ["syn", "quote", "proc-macro2"]
+llvm-ir = ["inkwell"]
+# Output formats
+luau-text = []
+luau-bytecode = []
+# Optimization levels
+optimize = []
+# Roblox integration
+roblox-api = ["serde", "serde_json"]
+# Advanced features
+parallelization = []
+binary-compatibility = []
+# Utilities
+temp-files = ["tempfile"]
+luau-runtime = ["mlua", "luau-sys"]
+logging = ["log"]
+proc_macros = ["syn"]
+

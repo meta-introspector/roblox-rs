@@ -1,0 +1,27 @@
+{
+  "name": "RobloxRSActorTest",
+  "tree": {
+    "$className": "DataModel",
+    "ReplicatedStorage": {
+      "$className": "ReplicatedStorage",
+      "RobloxRS": {
+        "$className": "Folder",
+        "ActorSystem": {
+          "$path": "src/ActorSystem.lua"
+        },
+        "SimpleActorSystem": {
+          "$path": "src/SimpleActorSystem.lua"
+        }
+      }
+    },
+    "ServerScriptService": {
+      "$className": "ServerScriptService",
+      "ActorTests": {
+        "$path": "src/ActorTests.lua"
+      },
+      "ActorSystemTest": {
+        "$path": "src/ActorSystemTest.lua"
+      }
+    }
+  }
+}

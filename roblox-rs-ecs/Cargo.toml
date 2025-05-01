@@ -1,0 +1,44 @@
+[package]
+name = "roblox-rs-ecs"
+version = "0.1.0"
+edition = "2021"
+authors = ["DunnoConz"]
+license = "MIT"
+description = "A Bevy-inspired Entity Component System for Roblox game development"
+repository = "https://github.com/DunnoConz/roblox-rs"
+keywords = ["roblox", "ecs", "game-development", "entity-component-system"]
+categories = ["game-development"]
+readme = "README.md"
+
+[dependencies]
+# Core dependencies
+roblox-rs-core = { path = "../roblox-rs-core", version = "0.1.0" }
+
+# ECS framework (inherit versions from workspace)
+hecs = { workspace = true, default-features = false }
+bitflags = { workspace = true }
+smallvec = { workspace = true, default-features = false }
+slotmap = { workspace = true, default-features = false }
+rayon = { workspace = true, optional = true }
+parking_lot = { workspace = true, optional = true }
+
+# Error handling and utilities
+thiserror = { workspace = true }
+anyhow = { workspace = true }
+log = { workspace = true, optional = true }
+
+[features]
+default = ["native"]
+# Target platforms
+native = ["parking_lot", "rayon", "log"]
+roblox = []
+# Optimizations
+optimize = []
+# Thread safety
+sync = []
+parallel = ["rayon", "sync"]
+
+[build-dependencies]
+syn = { workspace = true, features = ["full", "parsing"] }
+quote = { workspace = true }
+proc-macro2 = { workspace = true } 

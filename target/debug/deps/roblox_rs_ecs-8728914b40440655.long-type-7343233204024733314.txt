@@ -1,0 +1,1 @@
+FunctionSystem<for<'a, 'b> fn(event::EventReader<'a, TestEvent>, resource::ResMut<'b, EventCounter>) {read_events}, (event::EventReader<'_, TestEvent>, resource::ResMut<'_, EventCounter>)>
