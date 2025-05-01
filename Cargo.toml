@@ -1,9 +1,7 @@
 [workspace]
 resolver = "2"
 members = [
-    "roblox-rs-cli",
-    "roblox-rs-core",
-    "roblox-rs-ecs"
+    "roblox-rs-core"
     # These are planned future crates
     # "roblox-rs-rojo"
 ]
