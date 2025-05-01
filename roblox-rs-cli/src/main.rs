@@ -4,7 +4,7 @@ use std::path::{Path, PathBuf};
 use std::process;
 
 use clap::{Parser, Subcommand};
-use roblox_rs_core::{compile, CompileOptions, OptimizationLevel};
+use roblox_rs_core::{compile, CompileOptions, compiler::OptimizationLevel};
 
 #[derive(Parser)]
 #[command(author, version, about, long_about = None)]
