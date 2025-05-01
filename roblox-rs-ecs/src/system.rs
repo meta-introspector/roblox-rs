@@ -247,4 +247,3 @@ mod tests {
         assert_eq!(*world.get_resource::<u32>().unwrap(), 42);
     }
 } 
-} 
