@@ -4,3 +4,6 @@
 [submodule "vendor/TweenServiceV2"]
 	path = vendor/TweenServiceV2
 	url = https://github.com/Steadyon/TweenServiceV2.git
+[submodule "vendor/roblox-additive-game"]
+	path = vendor/roblox-additive-game
+	url = https://github.com/awsdataarchitect/roblox-additive-game.git
