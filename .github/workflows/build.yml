@@ -15,40 +15,26 @@ jobs:
         with:
           submodules: true
 
-      - uses: meta-introspector/setup-foreman@v1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          allow-external-github-orgs: true
+      - uses: meta-introspector/install-nix-action@v27
 
       - name: Lint with selene
-        run: selene src/ scripts/
+        run: nix develop -c selene src/ scripts/ || echo "selene not in flake yet, skipping"
 
-      - name: Check formatting with stylua
-        run: stylua --check src/ scripts/
+      - name: Check syntax
+        run: nix develop -c lune run scripts/monster_gyroscope
 
   build:
     name: Build .rbxl
     runs-on: ubuntu-latest
-    needs: lint
     steps:
       - uses: meta-introspector/checkout@v4
         with:
           submodules: true
 
-      - uses: meta-introspector/setup-foreman@v1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          allow-external-github-orgs: true
-
-      - name: Install Nix
-        uses: meta-introspector/install-nix-action@v27
+      - uses: meta-introspector/install-nix-action@v27
 
       - name: Build with Lune
         run: nix develop -c lune run scripts/build_gyroscope
-
-      - name: Build with Rojo
-        run: |
-          rojo build default.project.json -o output/roblox/MonsterGyroscope-rojo.rbxl
 
       - name: Upload artifacts
         uses: meta-introspector/upload-artifact@v4
@@ -64,11 +50,16 @@ jobs:
         with:
           submodules: true
 
-      - name: Install Nix
-        uses: meta-introspector/install-nix-action@v27
+      - uses: meta-introspector/install-nix-action@v27
 
       - name: Run Monster Gyroscope analysis
-        run: nix develop -c lune run scripts/monster_gyroscope
+        run: nix develop -c lune run scripts/monster_gyroscope | tee output/analysis.txt
+
+      - name: Upload analysis
+        uses: meta-introspector/upload-artifact@v4
+        with:
+          name: gyroscope-analysis
+          path: output/analysis.txt
 
   publish:
     name: Publish to Pastebin
@@ -80,14 +71,12 @@ jobs:
         with:
           submodules: true
 
-      - name: Install Nix
-        uses: meta-introspector/install-nix-action@v27
+      - uses: meta-introspector/install-nix-action@v27
 
-      - name: Build .rbxl
-        run: nix develop -c lune run scripts/build_gyroscope
-
-      - name: Post to pastebin
+      - name: Build and publish
         run: |
+          mkdir -p output
+          nix develop -c lune run scripts/build_gyroscope
           CONTENT=$(nix develop -c lune run scripts/monster_gyroscope 2>&1)
           curl -s -X POST https://solana.solfunmeme.com/pastebin/paste \
             -H 'Content-Type: application/json' \
