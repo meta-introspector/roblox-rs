@@ -1,0 +1,6 @@
+[submodule "vendor/tween-promise"]
+	path = vendor/tween-promise
+	url = https://github.com/EgoMoose/tween-promise.git
+[submodule "vendor/TweenServiceV2"]
+	path = vendor/TweenServiceV2
+	url = https://github.com/Steadyon/TweenServiceV2.git
