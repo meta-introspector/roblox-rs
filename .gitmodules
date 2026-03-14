@@ -7,3 +7,12 @@
 [submodule "vendor/roblox-additive-game"]
 	path = vendor/roblox-additive-game
 	url = https://github.com/awsdataarchitect/roblox-additive-game.git
+[submodule "vendor/foreman"]
+	path = vendor/foreman
+	url = https://github.com/Roblox/foreman.git
+[submodule "vendor/jest-roblox"]
+	path = vendor/jest-roblox
+	url = https://github.com/Roblox/jest-roblox.git
+[submodule "vendor/setup-foreman"]
+	path = vendor/setup-foreman
+	url = https://github.com/meta-introspector/setup-foreman.git
