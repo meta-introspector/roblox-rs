@@ -62,7 +62,7 @@ jobs:
           path: output/analysis.txt
 
   publish:
-    name: Publish to Pastebin
+    name: Publish Results
     runs-on: ubuntu-latest
     needs: [build, analysis]
     if: github.ref == 'refs/heads/main'
@@ -73,15 +73,14 @@ jobs:
 
       - uses: meta-introspector/install-nix-action@v27
 
-      - name: Build and publish
+      - name: Build artifacts
         run: |
           mkdir -p output
           nix develop -c lune run scripts/build_gyroscope
-          CONTENT=$(nix develop -c lune run scripts/monster_gyroscope 2>&1)
-          curl -s -X POST https://solana.solfunmeme.com/pastebin/paste \
-            -H 'Content-Type: application/json' \
-            -d "$(jq -n \
-              --arg content "$CONTENT" \
-              --arg title "Monster Gyroscope CI Build $(date -u +%Y%m%d_%H%M%S)" \
-              --argjson keywords '["gyroscope","ci","build","monster","cl15","196883"]' \
-              '{title: $title, content: $content, keywords: $keywords}')"
+          nix develop -c lune run scripts/monster_gyroscope > output/analysis.txt 2>&1
+
+      - name: Upload results
+        uses: meta-introspector/upload-artifact@v4
+        with:
+          name: monster-gyroscope-results
+          path: output/
