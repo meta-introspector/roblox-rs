@@ -6,6 +6,7 @@ members = [
     "roblox-rs-ecs",
     "roblox-rs-gui", "roblox-rs-tester",
     "roblox-rs-api",
+    "site-gen",
     # These are planned future crates
     # "roblox-rs-rojo"
 ]

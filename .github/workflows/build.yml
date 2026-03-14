@@ -73,14 +73,21 @@ jobs:
 
       - uses: meta-introspector/install-nix-action@v27
 
-      - name: Build artifacts
+      - name: Build static site
         run: |
-          mkdir -p output
+          nix develop -c cargo run --release -p site-gen
           nix develop -c lune run scripts/build_gyroscope
-          nix develop -c lune run scripts/monster_gyroscope > output/analysis.txt 2>&1
+          nix develop -c lune run scripts/monster_gyroscope > output/site/analysis.txt 2>&1
+          cp output/roblox/MonsterGyroscope.rbxl output/site/ 2>/dev/null || true
 
-      - name: Upload results
+      - name: Upload site artifact
         uses: meta-introspector/upload-artifact@v4
         with:
-          name: monster-gyroscope-results
-          path: output/
+          name: github-pages
+          path: output/site/
+
+      - name: Deploy to GitHub Pages
+        uses: meta-introspector/upload-artifact@v4
+        with:
+          name: monster-gyroscope-site
+          path: output/site/

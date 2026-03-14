@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Walk · Monster Gyroscope</title>
+<style>*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a12;color:#e0e0e0;font-family:'Fira Code',monospace;padding:20px;max-width:1200px;margin:0 auto}
+h1{color:#8af;font-size:1.4em;margin-bottom:4px}
+h2{color:#6af;font-size:1.1em;margin:16px 0 8px}
+.sub{color:#556;font-size:.8em;margin-bottom:12px}
+a{color:#8af;text-decoration:none}a:hover{text-decoration:underline}
+nav{background:#111;padding:8px 16px;border-radius:6px;margin-bottom:16px;display:flex;gap:16px;flex-wrap:wrap}
+nav a{color:#8af;font-size:.85em}nav a.active{color:#fff;border-bottom:2px solid #8af}
+table{border-collapse:collapse;font-size:.8em;margin:8px 0;width:100%}
+th,td{padding:4px 10px;border:1px solid #1a1a2a;text-align:right}
+th{background:#111;color:#8af}
+tr:hover{background:#1a1a2a}
+.card{background:#111;border:1px solid #1a1a2a;border-radius:6px;padding:12px;margin:8px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(350px,1fr));gap:12px}
+pre{background:#0d0d18;border:1px solid #1a1a2a;border-radius:4px;padding:10px;overflow-x:auto;font-size:.75em;line-height:1.4}
+code{color:#cdc}
+.tag{display:inline-block;padding:2px 8px;border-radius:3px;font-size:.7em;margin:2px}
+.tag-earth{background:#1a2a1a;color:#4c4}.tag-hub{background:#2a2a1a;color:#fa0}
+.tag-spoke{background:#1a1a2a;color:#88f}.tag-heaven{background:#2a1a2a;color:#c8f}
+.tag-inv{background:#2a1a1a;color:#f55}
+.conserved{display:flex;gap:12px;margin:8px 0;flex-wrap:wrap}
+.conserved div{background:#111;padding:6px 12px;border-radius:4px;border:1px solid #222}
+.conserved span{color:#4f8}
+canvas{border-radius:6px;background:#0d0d18;border:1px solid #1a1a2a}
+svg{display:block;margin:8px auto}
+.footer{margin-top:24px;padding-top:12px;border-top:1px solid #1a1a2a;font-size:.7em;color:#334}
+.kw{color:#c586c0}.fn{color:#dcdcaa}.num{color:#b5cea8}.str{color:#ce9178}.cmt{color:#6a9955}
+</style></head><body><nav><a href="index.html">Overview</a><a href="gyroscope.html">Gyroscope</a><a href="analysis.html">Analysis</a><a href="walk.html" class="active">Walk</a><a href="chain.html">Chain</a><a href="code.html">Code</a></nav><h1>Prime Negation Walk</h1>
+<div class="sub">Negate each SSP basis vector one at a time, measure effect on trivector and hub</div>
+<table><thead><tr><th>Region</th><th>Primes</th><th>Hub effect</th><th>Slot ratio</th></tr></thead><tbody>
+<tr><td style="text-align:left"><span class="tag tag-earth">Earth</span></td><td style="text-align:left">2,3,5,7,11,13</td><td>conserved</td><td>-1.000</td></tr>
+<tr><td style="text-align:left"><span class="tag tag-spoke">Spoke</span></td><td style="text-align:left">17</td><td>conserved</td><td>-0.708</td></tr>
+<tr><td style="text-align:left"><span class="tag tag-hub">Hub</span></td><td style="text-align:left">19</td><td style="color:#f55">BREAKS→-2</td><td>+0.250</td></tr>
+<tr><td style="text-align:left"><span class="tag tag-hub">Hub</span></td><td style="text-align:left">23</td><td style="color:#f55">BREAKS→+2</td><td>+0.917</td></tr>
+<tr><td style="text-align:left"><span class="tag tag-heaven">Heaven</span></td><td style="text-align:left">29,31,41</td><td>conserved</td><td>mixed</td></tr>
+<tr><td style="text-align:left"><span class="tag tag-inv">Invisible</span></td><td style="text-align:left">47,59,71</td><td>conserved</td><td>NaN (c₁=0)</td></tr>
+</tbody></table>
+<h2>Hex Walk Groups</h2>
+<div class="grid"><div class="card"><b>Group 1 (86F)</b>: Earth+71<br><span style="color:#4f8">hub_sum = +8</span> — conserved</div><div class="card"><b>Group 2 (A3)</b>: Heaven<br><span style="color:#f55">hub_sum = -8</span> — FLIPPED!</div><div class="card"><b>Group 3 (F)</b>: Invisible<br><span style="color:#4f8">hub_sum = +8</span> — no effect</div></div>
+<h2>Walk Invariant</h2>
+<div class="card"><p>Trivector e₄₇∧e₅₉∧e₇₁ is <b style="color:#4f8">absolutely invariant</b> under all 15 negations.</p><p>O ratio stays at -0.500000 regardless of which basis vector is negated.</p><p>Hub breaks ONLY at skeleton pair: e₁₉→hub_sum=-2, e₂₃→hub_sum=+2</p><p>Skeleton: <b style="color:#fa0">{3, 19}</b> — irreducible core</p></div>
+<h2>Per-Prime Detail</h2>
+<table><thead><tr><th>p</th><th>role</th><th>c₁(p)</th><th>hub_sum after negation</th><th>trivector ratio</th></tr></thead><tbody>
+<tr><td>2</td><td><span class="tag tag-earth">Earth</span></td><td>4371</td><td>8</td><td>-0.500</td></tr>
+<tr><td>3</td><td><span class="tag tag-earth">Earth</span></td><td>782</td><td>8</td><td>-0.500</td></tr>
+<tr><td>5</td><td><span class="tag tag-earth">Earth</span></td><td>133</td><td>8</td><td>-0.500</td></tr>
+<tr><td>7</td><td><span class="tag tag-earth">Earth</span></td><td>50</td><td>8</td><td>-0.500</td></tr>
+<tr><td>11</td><td><span class="tag tag-earth">Earth</span></td><td>16</td><td>8</td><td>-0.500</td></tr>
+<tr><td>13</td><td><span class="tag tag-earth">Earth</span></td><td>11</td><td>8</td><td>-0.500</td></tr>
+<tr><td>17</td><td><span class="tag tag-spoke">Spoke</span></td><td>6</td><td>8</td><td>-0.500</td></tr>
+<tr><td>19</td><td><span class="tag tag-hub">Hub</span></td><td>5</td><td style="color:#f55">-2</td><td>-0.500</td></tr>
+<tr><td>23</td><td><span class="tag tag-hub">Hub</span></td><td>3</td><td style="color:#f55">2</td><td>-0.500</td></tr>
+<tr><td>29</td><td><span class="tag tag-heaven">Heaven</span></td><td>2</td><td>8</td><td>-0.500</td></tr>
+<tr><td>31</td><td><span class="tag tag-heaven">Heaven</span></td><td>2</td><td>8</td><td>-0.500</td></tr>
+<tr><td>41</td><td><span class="tag tag-heaven">Heaven</span></td><td>1</td><td>8</td><td>-0.500</td></tr>
+<tr><td>47</td><td><span class="tag tag-inv">Invisible</span></td><td>0</td><td>8</td><td>-0.500</td></tr>
+<tr><td>59</td><td><span class="tag tag-inv">Invisible</span></td><td>0</td><td>8</td><td>-0.500</td></tr>
+<tr><td>71</td><td><span class="tag tag-inv">Invisible</span></td><td>0</td><td>8</td><td>-0.500</td></tr>
+</tbody></table>
+<div class="footer">Monster Gyroscope · Cl(15,0,0) · 47×59×71=196883 · O⁶=I · Generated by CI</div>
+</body></html>

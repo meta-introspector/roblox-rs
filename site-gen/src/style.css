@@ -1,0 +1,27 @@
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a12;color:#e0e0e0;font-family:'Fira Code',monospace;padding:20px;max-width:1200px;margin:0 auto}
+h1{color:#8af;font-size:1.4em;margin-bottom:4px}
+h2{color:#6af;font-size:1.1em;margin:16px 0 8px}
+.sub{color:#556;font-size:.8em;margin-bottom:12px}
+a{color:#8af;text-decoration:none}a:hover{text-decoration:underline}
+nav{background:#111;padding:8px 16px;border-radius:6px;margin-bottom:16px;display:flex;gap:16px;flex-wrap:wrap}
+nav a{color:#8af;font-size:.85em}nav a.active{color:#fff;border-bottom:2px solid #8af}
+table{border-collapse:collapse;font-size:.8em;margin:8px 0;width:100%}
+th,td{padding:4px 10px;border:1px solid #1a1a2a;text-align:right}
+th{background:#111;color:#8af}
+tr:hover{background:#1a1a2a}
+.card{background:#111;border:1px solid #1a1a2a;border-radius:6px;padding:12px;margin:8px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(350px,1fr));gap:12px}
+pre{background:#0d0d18;border:1px solid #1a1a2a;border-radius:4px;padding:10px;overflow-x:auto;font-size:.75em;line-height:1.4}
+code{color:#cdc}
+.tag{display:inline-block;padding:2px 8px;border-radius:3px;font-size:.7em;margin:2px}
+.tag-earth{background:#1a2a1a;color:#4c4}.tag-hub{background:#2a2a1a;color:#fa0}
+.tag-spoke{background:#1a1a2a;color:#88f}.tag-heaven{background:#2a1a2a;color:#c8f}
+.tag-inv{background:#2a1a1a;color:#f55}
+.conserved{display:flex;gap:12px;margin:8px 0;flex-wrap:wrap}
+.conserved div{background:#111;padding:6px 12px;border-radius:4px;border:1px solid #222}
+.conserved span{color:#4f8}
+canvas{border-radius:6px;background:#0d0d18;border:1px solid #1a1a2a}
+svg{display:block;margin:8px auto}
+.footer{margin-top:24px;padding-top:12px;border-top:1px solid #1a1a2a;font-size:.7em;color:#334}
+.kw{color:#c586c0}.fn{color:#dcdcaa}.num{color:#b5cea8}.str{color:#ce9178}.cmt{color:#6a9955}

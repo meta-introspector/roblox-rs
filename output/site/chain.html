@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Chain · Monster Gyroscope</title>
+<style>*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a12;color:#e0e0e0;font-family:'Fira Code',monospace;padding:20px;max-width:1200px;margin:0 auto}
+h1{color:#8af;font-size:1.4em;margin-bottom:4px}
+h2{color:#6af;font-size:1.1em;margin:16px 0 8px}
+.sub{color:#556;font-size:.8em;margin-bottom:12px}
+a{color:#8af;text-decoration:none}a:hover{text-decoration:underline}
+nav{background:#111;padding:8px 16px;border-radius:6px;margin-bottom:16px;display:flex;gap:16px;flex-wrap:wrap}
+nav a{color:#8af;font-size:.85em}nav a.active{color:#fff;border-bottom:2px solid #8af}
+table{border-collapse:collapse;font-size:.8em;margin:8px 0;width:100%}
+th,td{padding:4px 10px;border:1px solid #1a1a2a;text-align:right}
+th{background:#111;color:#8af}
+tr:hover{background:#1a1a2a}
+.card{background:#111;border:1px solid #1a1a2a;border-radius:6px;padding:12px;margin:8px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(350px,1fr));gap:12px}
+pre{background:#0d0d18;border:1px solid #1a1a2a;border-radius:4px;padding:10px;overflow-x:auto;font-size:.75em;line-height:1.4}
+code{color:#cdc}
+.tag{display:inline-block;padding:2px 8px;border-radius:3px;font-size:.7em;margin:2px}
+.tag-earth{background:#1a2a1a;color:#4c4}.tag-hub{background:#2a2a1a;color:#fa0}
+.tag-spoke{background:#1a1a2a;color:#88f}.tag-heaven{background:#2a1a2a;color:#c8f}
+.tag-inv{background:#2a1a1a;color:#f55}
+.conserved{display:flex;gap:12px;margin:8px 0;flex-wrap:wrap}
+.conserved div{background:#111;padding:6px 12px;border-radius:4px;border:1px solid #222}
+.conserved span{color:#4f8}
+canvas{border-radius:6px;background:#0d0d18;border:1px solid #1a1a2a}
+svg{display:block;margin:8px auto}
+.footer{margin-top:24px;padding-top:12px;border-top:1px solid #1a1a2a;font-size:.7em;color:#334}
+.kw{color:#c586c0}.fn{color:#dcdcaa}.num{color:#b5cea8}.str{color:#ce9178}.cmt{color:#6a9955}
+</style></head><body><nav><a href="index.html">Overview</a><a href="gyroscope.html">Gyroscope</a><a href="analysis.html">Analysis</a><a href="walk.html">Walk</a><a href="chain.html" class="active">Chain</a><a href="code.html">Code</a></nav><h1>DASL Chain Convergence</h1>
+<div class="sub">Iterative CBOR→Cl(15)→CBOR with IPFS CIDs at each step</div>
+<svg width="600" height="180" viewBox="0 0 600 180">
+<circle cx="80" cy="90" r="40" fill="none" stroke="#4af" stroke-width="2"/>
+<text x="80" y="85" text-anchor="middle" fill="#4af" font-size="14" font-family="monospace">Step 0</text>
+<text x="80" y="105" text-anchor="middle" fill="#888" font-size="12" font-family="monospace">57→23</text>
+<line x1="122" y1="90" x2="238" y2="90" stroke="#334" stroke-width="2" marker-end="url(#arr)"/>
+<circle cx="280" cy="90" r="40" fill="none" stroke="#8af" stroke-width="2"/>
+<text x="280" y="85" text-anchor="middle" fill="#8af" font-size="14" font-family="monospace">Step 1</text>
+<text x="280" y="105" text-anchor="middle" fill="#888" font-size="12" font-family="monospace">24→3</text>
+<line x1="322" y1="90" x2="438" y2="90" stroke="#334" stroke-width="2" marker-end="url(#arr)"/>
+<circle cx="480" cy="90" r="40" fill="none" stroke="#4f8" stroke-width="2"/>
+<text x="480" y="85" text-anchor="middle" fill="#4f8" font-size="14" font-family="monospace">Step 2</text>
+<text x="480" y="105" text-anchor="middle" fill="#888" font-size="12" font-family="monospace">4→4</text>
+<path d="M 520 70 A 30 30 0 1 1 520 110" fill="none" stroke="#4f8" stroke-width="2" marker-end="url(#arr)"/>
+<text x="560" y="95" fill="#4f8" font-size="11" font-family="monospace">FIXED</text>
+<defs><marker id="arr" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10" fill="#556"/></marker></defs>
+</svg>
+<h2>Step Details</h2>
+<table><thead><tr><th>Step</th><th>Records In</th><th>Records Out</th><th>Status</th></tr></thead><tbody>
+<tr><td>0</td><td>57</td><td>23</td><td>reducing</td></tr>
+<tr><td>1</td><td>24</td><td>3</td><td>reducing</td></tr>
+<tr><td>2</td><td>4</td><td>4</td><td style="color:#4f8">FIXED POINT</td></tr>
+</tbody></table>
+<h2>Fixed Point Contents</h2>
+<div class="card"><p>The attractor contains exactly 3+1 records:</p><ul style="margin:8px 0 0 20px"><li><b style="color:#f55">196883 trivector</b> — e₄₇∧e₅₉∧e₇₁</li><li><b style="color:#4af">Operator O</b> — the sandwich product operator</li><li><b style="color:#888">Chain trace</b> — convergence metadata</li></ul></div>
+<h2>IPFS CIDs</h2>
+<div class="card"><pre>Input CBOR:  QmSamB7CJ7oHZNJSGGUAr31EZgnTAx67Cng3EVZ8HCFjQw (4954 bytes)
+Output CBOR: QmRk6dDmrL9s2e8FcB8NkBBiwtHGaEVnbobbYGKU3ZKzkT (3558 bytes)
+Chain final: Qmes1g9r81v6uKscjrrUxEM1PrK98wVqkDDuPQ23XYAeQd
+Walk CBOR:   QmPs2Uts8HwBBe4rqyJkgGVC3Vm4aZnDmNgPv5Fdh3Mov5
+</pre></div>
+<div class="footer">Monster Gyroscope · Cl(15,0,0) · 47×59×71=196883 · O⁶=I · Generated by CI</div>
+</body></html>

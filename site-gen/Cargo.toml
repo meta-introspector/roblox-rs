@@ -1,0 +1,8 @@
+[package]
+name = "site-gen"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "site-gen"
+path = "src/main.rs"
